@@ -34,8 +34,15 @@ class TweetsController < ApplicationController
       end
 
     end
+   
+    def hashtags
+      tag = Tag.find_by(name: params[:name])
+      @tweets = tag.tweets
+    end
 
+    
     private
+
     def set_tweet
       @tweet = Tweet.find(params[:id])
     end

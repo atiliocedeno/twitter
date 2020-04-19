@@ -12,7 +12,7 @@
 <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">Tweet</h5>
-        <p class="card-text"> <%= t.content %> </p>
+        <p class="card-text"> <%= render_with_hashtag(t.content) %> </p>
 
 <%= link_to 'RT', retweet_tweet_path(t.id), data: { confirm: 'Estas seguro que quieres retweetear?', method: :post} %>
 <%= t.retweets %>

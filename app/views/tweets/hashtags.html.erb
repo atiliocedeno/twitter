@@ -1,0 +1,40 @@
+<% @tweets.each do |t| %>
+    <div class="container">
+    <div class= "card bg-light border-info mb-3 mx-auto" style="width: 35rem;" >
+        <div class="row no-gutters">
+            <div class="col-md-4">
+    <%= link_to user_path(t) do %>
+    <%= t.user.name %>
+    <img src="<%= t.user.photo  %>" alt="avatar" class="card-img" >
+            </div>
+    <%end%>
+    
+    <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Tweet</h5>
+            <p class="card-text"> <%= t.content %> </p>
+    
+    <%= link_to 'RT', retweet_tweet_path(t.id), data: { confirm: 'Estas seguro que quieres retweetear?', method: :post} %>
+    <%= t.retweets %>
+    
+    <%= link_to 'LIKE', tweet_likes_path(t), method: :post %> <%= t.likes.count %>
+    <% if user_signed_in? %>
+    <% if current_user.likes.find_by(tweet_id: t.id) %>
+    <%= link_to 'DISLIKE', tweet_like_path(t, current_user), method: :delete %>
+    
+    <% else %>
+      <%= link_to 'like', tweet_likes_path(t), method: :post %>
+       <%= t.likes.count %>
+    <% end %>
+    <% end %>
+    <br>
+    <%= link_to tweet_path(t) do %>
+      <small> Twitiado hace <%= time_ago_in_words(t.created_at) %> </small>
+    <% end %>
+    </div>
+    </div>
+      </div>
+    </div>
+    </div>
+    <% end %>
+    

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+
     def show
         tweet = Tweet.find(params[:id])
         id = tweet.user.id

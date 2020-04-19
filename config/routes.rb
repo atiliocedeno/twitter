@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 resources :tweets do
   member do
     post 'retweet'
@@ -15,4 +17,5 @@ end
     resources :follows
   end
 root 'tweets#index'
-   end
+get '/tweets/hashtags/:name', to: "tweets#hashtags"   
+end
