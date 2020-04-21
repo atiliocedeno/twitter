@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -7,5 +7,20 @@ class User < ApplicationRecord
   has_many :likes, :dependent => :destroy
   has_many :tweets, :dependent => :destroy
   has_many :follows, :dependent => :destroy
-#through: :likes, 
+# has_many :follows
+
+# has_many :followers_relationships, foreing_key: :following_id, class_name: 'Follow'
+# has_many :followers, through: :followers_relationships, source: :follower
+
+# has_many :following_realtionships, foreing_key: :user_id, class_name: 'Follow'
+# has_many :following, through: :following_realtionships, source: :following
+
+  require 'bcrypt'
+  def valid_password?(password)
+    if BCrypt::Password.new(encrypted_password) == password
+      return true
+    else
+      return false
+    end
+  end
 end
